@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Tema_1_Andreea_Cioaca_1081</string>
+    <string name="btnContinue">CONTINUE</string>
+    <string name="btnCont">Continue</string>
+    <string name="forgot_password">Forgot password</string>
+    <string name="logo">Logo</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="pswd">Create a password</string>
+    <string name="acc">I HAVE AN ACCOUNT</string>
+    <string name="start">GET STARTED</string>
+    <string name="welcome_to_clue">Welcome to Clue!</string>
+    <string name="startimg">start_image</string>
+    <string name="first_name">Your first name</string>
+    <string name="back"><![CDATA[< Back]]></string>
+    <string name="first_name_indent">"     Your first name"</string>
+    <string name="email_indent">"     Email"</string>
+    <string name="password_indent">"     Create a password"</string>
+    <string name="pswd_indent">"     Password"</string>
+    <string name="terms">I agree to the <b><u>Terms of Service</u></b></string>
+    <string name="privacy">I agree to the <b><u>Privacy Policy</u></b></string>
+</resources>
