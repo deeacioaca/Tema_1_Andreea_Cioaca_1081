@@ -1,4 +1,4 @@
-package com.example.tema_1_andreea_cioaca_1081;
+package com.example.tema_dam_andreea_cioaca_1081;
 
 import androidx.appcompat.app.AppCompatActivity;
 
