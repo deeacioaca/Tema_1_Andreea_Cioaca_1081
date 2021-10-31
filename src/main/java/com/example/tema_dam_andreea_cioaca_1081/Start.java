@@ -22,7 +22,7 @@ public class Start extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Start.this, "Log in!", Toast.LENGTH_LONG).show();
+                //Toast.makeText(Start.this, "Log in!", Toast.LENGTH_LONG).show();
                 Intent newWindow = new Intent(Start.this, Login.class);
                 startActivity(newWindow);
             }
@@ -32,7 +32,7 @@ public class Start extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Start.this, "Register here!", Toast.LENGTH_LONG).show();
+                //Toast.makeText(Start.this, "Register here!", Toast.LENGTH_LONG).show();
                 Intent newWindow = new Intent(Start.this, Register.class);
                 startActivity(newWindow);
             }

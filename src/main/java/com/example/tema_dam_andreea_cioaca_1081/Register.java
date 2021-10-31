@@ -83,6 +83,10 @@ public class Register extends AppCompatActivity {
             Toast.makeText(Register.this, "Completati parola!", Toast.LENGTH_SHORT).show();
             return false;
         }
+        if (etPassword.getText().toString().length() < 5) {
+            Toast.makeText(Register.this, "Parola trebuie sa contina minim 5 caractere!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
         if (!switchTermsOfService.isChecked()) {
             Toast.makeText(Register.this, "Trebuie sa acceptati termenii si conditiile!", Toast.LENGTH_SHORT).show();
             return false;

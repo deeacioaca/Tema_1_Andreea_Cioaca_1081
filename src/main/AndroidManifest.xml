@@ -24,7 +24,9 @@
         <activity
             android:name="com.example.tema_dam_andreea_cioaca_1081.Login"
             android:exported="true" />
-
+        <activity
+            android:name="com.example.tema_dam_andreea_cioaca_1081.TrackingList"
+            android:exported="true" />
     </application>
 
 </manifest>
