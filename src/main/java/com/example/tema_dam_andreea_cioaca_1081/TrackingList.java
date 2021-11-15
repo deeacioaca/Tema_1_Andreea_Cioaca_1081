@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Random;
 
 public class TrackingList extends AppCompatActivity {
+
     private ListView listView;
     private TrackingAdapter trackingAdapter;
 
@@ -24,26 +25,57 @@ public class TrackingList extends AppCompatActivity {
         trackingAdapter = new TrackingAdapter(getCategories());
         listView = findViewById(R.id.ListView);
         listView.setAdapter(trackingAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Random random = new Random(1);
-                int randomInt = random.nextInt();
-                if(randomInt % 2 == 0)
-                    trackingAdapter.updateList(getCategories());
-                else
-                    trackingAdapter.updateList(getCategories2());
-            }
-        });
 
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Random random = new Random(1);
+//                int randomInt = random.nextInt();
+//                if(randomInt % 2 == 0)
+//                    trackingAdapter.updateList(getCategories());
+//                else
+//                    trackingAdapter.updateList(getCategories2());
+//            }
+//        });
+//
+//        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+//            @Override
+//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+//                TrackingCategory category = trackingAdapter.getItem(position);
+//                Toast.makeText(TrackingList.this, category.toString(), Toast.LENGTH_LONG).show();
+//                return false;
+//            }
+//        });
+
+        JSONReader reader = new JSONReader();
+        Thread thread = new Thread(new Runnable() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                TrackingCategory category = trackingAdapter.getItem(position);
-                Toast.makeText(TrackingList.this, category.toString(), Toast.LENGTH_LONG).show();
-                return false;
+            public void run() {
+                reader.read("https://jsonkeeper.com/b/EL09", new IResponse() {
+                    @Override
+                    public void onSuccess(List<TrackingCategory> list) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+//                                Toast.makeText(TrackingList.this, list.toString(), Toast.LENGTH_SHORT).show();
+                            trackingAdapter.updateList(list);
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onError(String mesaj) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(TrackingList.this, mesaj, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                });
             }
         });
+        thread.start();
     }
 
     private List<TrackingCategory> getCategories(){
@@ -67,4 +99,6 @@ public class TrackingList extends AppCompatActivity {
         list.add(new TrackingCategory("Vitality", "Emotions", "Energy", "Mental"));
         return list;
     }
+
+
 }
