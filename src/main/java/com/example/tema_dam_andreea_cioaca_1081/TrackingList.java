@@ -1,6 +1,7 @@
 package com.example.tema_dam_andreea_cioaca_1081;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -16,6 +17,8 @@ public class TrackingList extends AppCompatActivity {
 
     private ListView listView;
     private TrackingAdapter trackingAdapter;
+    private UserDAO userDAO;
+    private TrackingCategoryDAO trackingCategoryDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +61,7 @@ public class TrackingList extends AppCompatActivity {
                             @Override
                             public void run() {
 //                                Toast.makeText(TrackingList.this, list.toString(), Toast.LENGTH_SHORT).show();
-                            trackingAdapter.updateList(list);
+                                trackingAdapter.updateList(list);
                             }
                         });
                     }
@@ -76,6 +79,20 @@ public class TrackingList extends AppCompatActivity {
             }
         });
         thread.start();
+
+        Thread thread2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                trackingCategoryDAO = Database.getInstance(TrackingList.this).getDatabaseTrackingCategory().trackingCategoryDAO();
+                List<TrackingCategory> list = getCategories();
+                for (int i = 0; i < list.size(); i++) {
+                    trackingCategoryDAO.insertAll(list.get(i));
+                }
+                List<TrackingCategory> categoriesBySymptoms = trackingCategoryDAO.getCategoryBySymptoms("Emotions");
+                Log.v("categories_list", categoriesBySymptoms.toString());
+            }
+        });
+        thread2.start();
     }
 
     private List<TrackingCategory> getCategories(){
@@ -83,22 +100,21 @@ public class TrackingList extends AppCompatActivity {
         list.add(new TrackingCategory("Period", "Bleeding", "Collection Method", "Longer than usual"));
         list.add(new TrackingCategory("Body", "Craving", "Digestion", "Fluid"));
         list.add(new TrackingCategory("Vitality", "Emotions", "Energy", "Mental"));
-        list.add(new TrackingCategory("Activities", "Appointment", "Exercise", "Meditation"));
+        list.add(new TrackingCategory("Activities", "Emotions","Appointment", "Exercise"));
         list.add(new TrackingCategory("Medical", "Injection", "Medication", "Pill"));
         list.add(new TrackingCategory("Pain", "Head", "Stomach", "Back"));
         return list;
     }
 
-    private List<TrackingCategory> getCategories2(){
-        List<TrackingCategory> list = new ArrayList<>();
-        list.add(new TrackingCategory("Activities", "Appointment", "Exercise", "Meditation"));
-        list.add(new TrackingCategory("Medical", "Injection", "Medication", "Pill"));
-        list.add(new TrackingCategory("Pain", "Head", "Stomach", "Back"));
-        list.add(new TrackingCategory("Period", "Bleeding", "Collection Method", "Longer than usual"));
-        list.add(new TrackingCategory("Body", "Craving", "Digestion", "Fluid"));
-        list.add(new TrackingCategory("Vitality", "Emotions", "Energy", "Mental"));
-        return list;
-    }
-
+//    private List<TrackingCategory> getCategories2(){
+//        List<TrackingCategory> list = new ArrayList<>();
+//        list.add(new TrackingCategory("Activities", "Appointment", "Exercise", "Meditation"));
+//        list.add(new TrackingCategory("Medical", "Injection", "Medication", "Pill"));
+//        list.add(new TrackingCategory("Pain", "Head", "Stomach", "Back"));
+//        list.add(new TrackingCategory("Period", "Bleeding", "Collection Method", "Longer than usual"));
+//        list.add(new TrackingCategory("Body", "Craving", "Digestion", "Fluid"));
+//        list.add(new TrackingCategory("Vitality", "Emotions", "Energy", "Mental"));
+//        return list;
+//    }
 
 }
