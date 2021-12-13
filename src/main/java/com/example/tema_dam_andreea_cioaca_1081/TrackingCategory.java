@@ -4,6 +4,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.google.firebase.database.annotations.NotNull;
+
 @Entity(tableName = "tracking_category")
 public class TrackingCategory {
 
@@ -27,6 +29,13 @@ public class TrackingCategory {
         this.symptom1 = symptom1;
         this.symptom2 = symptom2;
         this.symptom3 = symptom3;
+    }
+
+    public TrackingCategory() {
+        this.categoryName = "";
+        this.symptom1 = "";
+        this.symptom2 = "";
+        this.symptom3 = "";
     }
 
     public int getId() {
@@ -69,6 +78,7 @@ public class TrackingCategory {
         this.symptom3 = symptom3;
     }
 
+    @NotNull
     @Override
     public String toString() {
         return "TrackingCategory{" +
